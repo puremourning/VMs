@@ -1,0 +1,28 @@
+#!/bin/env bash
+
+echo 'source /opt/rh/devtoolset-6/enable' >> ~/.bash_profile
+echo 'source /opt/rh/rh-python36/enable' >> ~/.bash_profile
+
+source ~/.bash_profile
+
+# Install Xpra
+
+wget https://xpra.org/gpg.asc
+sudo rpm --import gpg.asc
+cd /etc/yum.repos.d
+sudo wget https://xpra.org/repos/CentOS/xpra.repo
+sudo yum install -y xpra xterm
+
+# Dev tools required for Xpra build. A bit heavy handed, but why not
+cd
+mkdir -p Xpra/
+cd Xpra
+svn co https://xpra.org/svn/Xpra/trunk
+
+sudo yum groupinstall "Additional Development"
+sudo yum install pycairo-devel
+sudo yum install Cython
+
+cd trunk/src
+python setup.py install --home=root
+

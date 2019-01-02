@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "bento/centos-7.4"
+
+  # config.vm.network "forwarded_port", guest: 22, host: 8080
+  config.vm.network "public_network"
+
+  config.vm.provider "parallels" do |v|
+    v.update_guest_tools = true
+
+    v.memory = 1024 * 4
+    v.cpus = 4
+
+    v.linked_clone = true
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024 * 4
+    v.cpus = 4
+  end
+
+  config.vm.provision "shell", path: "provision.root"
+  config.vm.provision "shell", path: "provision.vagrant", privileged: false
+  config.vm.provision "shell", path: "provision.ycm", privileged: false
+end
