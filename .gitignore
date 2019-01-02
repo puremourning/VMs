@@ -1,0 +1,4 @@
+*.un~
+.vagrant
+*.sw[op]
+*.log
