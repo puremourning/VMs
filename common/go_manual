@@ -1,0 +1,13 @@
+# vim: ft=sh
+
+GO_BALL=go1.11.4.linux-amd64.tar.gz
+pushd $HOME
+  curl -LOsS https://dl.google.com/go/${GO_BALL}
+  tar zxf ${GO_BALL}
+popd
+
+mkdir -p $HOME/bin
+export PATH=$HOME/bin:$PATH
+pushd $HOME/bin
+  ln -s $HOME/go/bin/* .
+popd

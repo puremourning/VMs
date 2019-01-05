@@ -23,5 +23,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", path: "provision.root"
   config.vm.provision "shell", path: "provision.vagrant", privileged: false
+  config.vm.provision "shell", path: "../common/rvm_manual", privileged: false
   config.vm.provision "shell", path: "../common/provision.ycm", privileged: false
 end

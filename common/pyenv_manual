@@ -2,17 +2,21 @@
 
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
-cat >> ~/.bashrc <<"EOF"
+cat >> ~/.pyenv_activate <<"EOF"
   export PATH="~/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
-  export PYTHON_CONFIGURE_OPTS="--enable-shared"
+  export PYTHON_CONFIGURE_OPTS="--enable-shared --enable-optimizations"
+  export CFLAGS='-O2 -g'
 EOF
 
-export PATH="~/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-export PYTHON_CONFIGURE_OPTS="--enable-shared"
+cat >> ~/.profile << "EOF"
+  [[ -f "$HOME/.pyenv_activate" ]] &&  source "$HOME/.pyenv_activate"
+EOF
 
-pyenv install 3.5.6
-pyenv global 3.5.6
+source $HOME/.pyenv_activate
+
+PYTHON_VERSION=3.5.4
+pyenv install $PYTHON_VERSION
+pyenv rehash
+pyenv global $PYTHON_VERSION
