@@ -1,13 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
-
+  config.vm.box = "ubuntu/trusty64"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
@@ -17,33 +12,36 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", privileged: true, inline: <<-SHELL
     apt-get update
     apt-get -y dist-upgrade
-    apt-get install -y libncurses5-dev
-    apt-get install -y xvfb
     apt-get install -y build-essential \
-                       lcov \
-                       libperl-dev \
-                       python-dev \
-                       python3-dev \
-                       liblua5.2-dev \
-                       lua5.2 \
-                       ruby-dev \
-                       cscope \
-                       libgtk2.0-dev \
                        cmake \
+                       python3-dev \
                        mono-devel \
                        golang \
                        nodejs \
                        npm \
                        ruby-dev \
                        python-virtualenv \
-                       php \
-                       composer \
-                       zlib1g-dev
+                       php5-cli \
+                       zlib1g-dev \
+                       git
+
   SHELL
 
   config.vm.provision "shell",
     path:       "../common/rvm_deps.ubuntu",
     privileged: true
+
+  config.vm.provision "shell",
+    path:       "../common/pyenv_manual",
+    privileged: false
+
+  config.vm.provision "shell",
+    path:       "../common/vim",
+    privileged: false
+
+  config.vm.provision "shell",
+    path:       "../common/composer_manual",
+    privileged: false
 
   config.vm.provision "shell",
     path:       "../common/provision.ycm",

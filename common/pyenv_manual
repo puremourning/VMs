@@ -1,0 +1,18 @@
+# vim: ft=sh
+
+curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+cat >> ~/.bashrc <<"EOF"
+  export PATH="~/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  export PYTHON_CONFIGURE_OPTS="--enable-shared"
+EOF
+
+export PATH="~/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYTHON_CONFIGURE_OPTS="--enable-shared"
+
+pyenv install 3.5.6
+pyenv global 3.5.6

@@ -1,0 +1,13 @@
+# vim: ft=sh
+apt-get install -y autoconf \
+                   automake \
+                   bison \
+                   libffi-dev \
+                   libgdbm-dev \
+                   libsqlite3-dev \
+                   libyaml-dev \
+                   sqlite3 \
+                   libncurses5-dev \
+                   libtool \
+                   libgmp-dev \
+                   libreadline6-dev

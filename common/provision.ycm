@@ -1,0 +1,48 @@
+# vim: ft=sh
+
+set -e
+
+# rust
+
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source ~/.cargo/env
+
+# Ruby/rvm
+
+gpg --keyserver hkp://keys.gnupg.net \
+    --recv-keys \
+    409B6B1796C275462A1703113804BB82D39DC0E3 \
+    7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s -- stable
+source $HOME/.rvm/scripts/rvm
+rvm install 2.5
+rvm use --default 2.5
+gem update --system
+gem install bundler
+# My plugins
+
+cd
+rm -rf .vim
+git clone https://github.com/puremourning/.vim-mac .vim
+cd .vim
+git submodule update --init --recursive
+vim --not-a-term -T builtin_debug -c 'PluginInstall' -c 'qa'
+
+# YCM
+
+cd
+cd .vim/bundle/YouCompleteMe-Clean
+git submodule update --init --recursive
+python3 ./install.py --all --quiet --clangd-completer
+
+# YCM virutalenv for testing
+cd
+mkdir -p Development/YouCompleteMe
+cd Development/YouCompleteMe
+
+virtualenv -p python3 runtime
+source runtime/bin/activate
+pip install --upgrade pip setuptools wheel
+pip install -r $HOME/.vim/bundle/YouCompleteMe-Clean/python/test_requirements.txt
+pip install -r $HOME/.vim/bundle/YouCompleteMe-Clean/third_party/ycmd/test_requirements.txt
+

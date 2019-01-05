@@ -1,0 +1,38 @@
+# vim: ft=ruby
+
+Vagrant.configure( "2" ) do |config|
+  config.vm.box = "ashiq/osx-10.14"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = false
+    vb.memory = 4096
+  end
+
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    brew update || brew update
+    brew install cmake \
+                 readline \
+                 autoconf \
+                 pkg-config \
+                 openssl \
+                 python \
+                 ruby \
+                 rust \
+                 go \
+                 npm \
+                 mono \
+                 gnupg2 \
+                 php \
+                 composer
+
+    brew install macvim --with-override-system-vim
+    sudo easy_install pip
+    sudo pip install virtualenv
+  SHELL
+
+  config.vm.provision "shell",
+    path:       "../common/provision.ycm",
+    privileged: false
+
+end

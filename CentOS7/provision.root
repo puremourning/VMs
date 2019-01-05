@@ -49,3 +49,5 @@ yum install -y mono-devel
 
 # rust, llvm not done as root
 
+sudo yum install the_silver_searcher
+yum install -y ruby-devel

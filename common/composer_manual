@@ -1,0 +1,5 @@
+# vim: ft=sh
+
+mkdir -p $HOME/bin
+curl  -sS https://getcomposer.org/installer | php -- --install-dir $HOME/bin --filename composer
+export PATH=$HOME/bin:$PATH
