@@ -17,8 +17,6 @@ Vagrant.configure("2") do |config|
                        python3-dev \
                        mono-devel \
                        golang \
-                       nodejs \
-                       npm \
                        ruby-dev \
                        python-virtualenv \
                        php \
@@ -30,6 +28,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell",
     path:       "../common/rvm_deps.ubuntu",
     privileged: true
+
+  config.vm.provision "shell",
+    path:       "../common/nvm_manual",
+    privileged: false
 
   config.vm.provision "shell",
     path:       "../common/rvm_manual",
