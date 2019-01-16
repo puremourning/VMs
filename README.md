@@ -11,7 +11,7 @@ Vagrant VMs for various testing of YouCompleteMe and other stuff. If it is usefu
 * Wait a bit
 * `vagrant ssh`
 
-From here you should now be in a position to run `vim` and get [my Vim configuration][pm-vim] with YCM installed and working.  Lucky you.
+From here you should now be in a position to run `vim` and get [my Vim configuration](https://github.com/puremourning/.vim-mac) with YCM installed and working.  Lucky you.
 
 # Running ycmd tests
 
