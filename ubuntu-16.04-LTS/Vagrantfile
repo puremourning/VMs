@@ -14,6 +14,12 @@ Vagrant.configure("2") do |config|
     vb.memory = "2048"
   end
 
+  config.vm_provider "parallels" do |p|
+    p.update_guest_tools = true
+    p.memory = 4096
+    p.cpus = 4
+  end
+
   config.vm.provision "shell", privileged: true, inline: <<-SHELL
     apt-get update
     apt-get -y dist-upgrade

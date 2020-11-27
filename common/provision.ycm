@@ -2,11 +2,6 @@
 
 set -e
 
-# rust
-
-curl https://sh.rustup.rs -sSf | sh -s -- -y
-source ~/.cargo/env
-
 # My plugins
 
 cd
@@ -21,16 +16,4 @@ vim --not-a-term -T builtin_debug -c 'PluginInstall' -c 'qa'
 cd
 cd .vim/bundle/YouCompleteMe-Clean
 git submodule update --init --recursive
-python3 ./install.py --all --quiet --clangd-completer
-
-# YCM virutalenv for testing
-cd
-mkdir -p Development/YouCompleteMe
-cd Development/YouCompleteMe
-
-virtualenv -p python3 runtime
-source runtime/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install -r $HOME/.vim/bundle/YouCompleteMe-Clean/python/test_requirements.txt
-pip install -r $HOME/.vim/bundle/YouCompleteMe-Clean/third_party/ycmd/test_requirements.txt
-
+python3 ./install.py --all --quiet
