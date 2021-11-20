@@ -9,6 +9,12 @@ Vagrant.configure("2") do |config|
     vb.memory = "2048"
   end
 
+  config.vm.provider "vmware_desktop" do |v|
+    config.vm.box = "rkrause/ubuntu-18.04-arm64"
+    v.vmx["memsize"] =  "4096"
+    v.vmx["numvcpus"] = "4"
+  end
+
   config.vm.provision "shell", privileged: true, inline: <<-SHELL
     apt-get update
     apt-get -y dist-upgrade
