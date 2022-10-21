@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "bento/ubuntu-18.04"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
@@ -15,12 +15,19 @@ Vagrant.configure("2") do |config|
     v.vmx["numvcpus"] = "4"
   end
 
+  config.vm.provider "parallels" do |p|
+    p.update_guest_tools = true
+    p.memory = 4096
+    p.cpus = 4
+  end
+
   config.vm.provision "shell", privileged: true, inline: <<-SHELL
     apt-get update
     apt-get -y dist-upgrade
     apt-get install -y build-essential \
                        cmake \
                        python3-dev \
+                       python3-pip \
                        mono-devel \
                        golang \
                        ruby-dev \
@@ -28,19 +35,11 @@ Vagrant.configure("2") do |config|
                        php \
                        composer \
                        zlib1g-dev
-
+    pip3 install cmake
   SHELL
 
   config.vm.provision "shell",
-    path:       "../common/rvm_deps.ubuntu",
-    privileged: true
-
-  config.vm.provision "shell",
     path:       "../common/nvm_manual",
-    privileged: false
-
-  config.vm.provision "shell",
-    path:       "../common/rvm_manual",
     privileged: false
 
   config.vm.provision "shell",
