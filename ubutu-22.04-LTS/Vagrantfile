@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This is for jai development so has a bunch of extra stuff compared with the
+# others
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-22.04"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = false
+    vb.memory = "2048"
+  end
+
+  config.vm.provider "parallels" do |p|
+    p.update_guest_tools = true
+    p.memory = 8192
+    p.cpus = 4
+    p.customize [ "set", :id, "--startup-view", "fullscreen" ]
+  end
+
+  config.vm.provision "shell", privileged: true, inline: <<-SHELL
+    apt-get update
+    apt-get -y dist-upgrade
+    apt-get install -y build-essential \
+                       cmake \
+                       vim-nox \
+                       python3-dev \
+                       mono-complete \
+                       golang \
+                       default-jdk \
+                       npm \
+                       ruby-dev \
+                       php \
+                       composer \
+                       zlib1g-dev
+  SHELL
+
+  config.vm.provision "shell",
+    path:       "../common/provision.ycm",
+    privileged: false
+
+  config.vm.synced_folder "~/Development", "/home/vagrant/Development"
+  config.vm.network "forwarded_port", guest: 22, host: 8022
+end
