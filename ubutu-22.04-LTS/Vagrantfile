@@ -5,7 +5,7 @@
 # others
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/ubuntu-22.04"
+  config.vm.box = "jharoian3/ubuntu-22.04-arm64"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
