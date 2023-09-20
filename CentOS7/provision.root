@@ -16,20 +16,20 @@ yum install -y redhat-lsb
 
 yum groupinstall -y "Development tools"
 
-# Install devtoolset-6
+# Install devtoolset-10
 
 yum install -y centos-release-scl
-yum install -y devtoolset-6
+yum install -y devtoolset-10
 
 # Activate it
 
-source /opt/rh/devtoolset-6/enable
+source /opt/rh/devtoolset-10/enable
 
 # YCM Dependencies: cmake, python
 
 yum install -y cmake
-yum install -y rh-python36 rh-python36-devel
-source /opt/rh/rh-python36/enable
+yum install -y rh-python38 rh-python38-devel
+source /opt/rh/rh-python38/enable
 
 # golang, node, typescript
 
@@ -51,3 +51,7 @@ yum install -y mono-devel
 
 sudo yum install the_silver_searcher
 yum install -y ruby-devel
+
+# docker
+
+yum install -y docker docker-compose
