@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+echo 'source /opt/rh/gcc-toolset-12/enable' >> ~/.bash_profile
+
+source ~/.bash_profile

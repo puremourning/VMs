@@ -17,9 +17,9 @@ pushd $HOME
   popd
 popd
 
-mkdir -p $HOME/bin
+mkdir -p $HOME/.local/bin
 export PATH=$HOME/bin:$PATH
-pushd $HOME/bin
+pushd $HOME/.local/bin
   rm -f vim
   ln -s $HOME/vim/root/bin/vim
 popd

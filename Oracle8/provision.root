@@ -1,0 +1,41 @@
+#!/bin/env bash
+
+yum update -y
+
+# Install the Parallels tools
+
+# mkdir /media/cdrom
+# mount /dev/cdrom /media/cdrom
+# /mdeia/cdmrom/install
+
+# To get the version
+
+yum install -y redhat-lsb
+
+# Standard dev tools
+
+yum groupinstall -y "Development tools"
+yum groupinstall -y "Additional Development"
+
+
+# Install devtoolset-10
+
+yum install -y gcc-toolset-12 clang clang-tools-extra
+
+# YCM Dependencies: cmake, python
+
+yum install -y cmake python3.11-devel
+update-alternatives --set python3 /usr/bin/python3.11
+
+# golang, node, mono
+
+yum install -y epel-release
+yum module install -y go-toolset nodejs:18 mono-complete
+
+# rust toolchain installed by ycm
+
+yum install -y the_silver_searcher
+
+# docker
+# yum install -y docker docker-compose
+
