@@ -9,9 +9,6 @@ pushd $HOME
     ./configure --prefix=$HOME/vim/root \
                  --with-features=huge \
                  --enable-python3interp=dynamic \
-                 --enable-rubyinterp=dynamic \
-                 --enable-terminal \
-                 --enable-multibyte \
                  --enable-fail-if-missing
     make -j 4 install
   popd
