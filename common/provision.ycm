@@ -4,6 +4,8 @@ set -e
 
 # My plugins
 
+git config --global url.https://github.com/.insteadOf ssh://git@github.com
+
 cd
 rm -rf .vim
 git clone https://github.com/puremourning/.vim-mac .vim

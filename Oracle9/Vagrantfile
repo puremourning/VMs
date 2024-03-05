@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This is for jai development so has a bunch of extra stuff compared with the
+# others
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "bento/oracle-9-arm64"
+
+  config.vm.provider "parallels" do |p|
+    p.update_guest_tools = true
+    p.memory = 1024 * 16
+    p.cpus = 8
+    p.customize [ "set", :id, "--startup-view", "fullscreen" ]
+
+    p.linked_clone = true
+  end
+
+  config.vm.provision "shell", path: "provision.root"
+  config.vm.provision "shell", path: "provision.vagrant", privileged: false
+  config.vm.provision "shell", path: "../common/vim", privileged: false
+  config.vm.provision "shell", path: "../common/provision.ycm", privileged: false
+
+  config.vm.synced_folder "~/Development", "/home/vagrant/Development"
+  config.vm.network "forwarded_port", guest: 22, host: 8023
+end
