@@ -1,7 +1,22 @@
 # vim: ft=sh
 
-GO_BALL=go1.11.4.linux-amd64.tar.gz
+ARCH=$(uname -m)
+case $ARCH in
+  x86_64)
+    ARCH=amd64
+    ;;
+  aarch64)
+    ARCH=arm64
+    ;;
+  *)
+    echo "Unsupported architecture: $ARCH"
+    exit 1
+    ;;
+esac
+GO_BALL=go1.23.4.linux-${ARCH}.tar.gz
 pushd $HOME
+  rm -f ${GO_BALL}
+  rm -rf go
   curl -LOsS https://dl.google.com/go/${GO_BALL}
   tar zxf ${GO_BALL}
 popd
@@ -9,5 +24,5 @@ popd
 mkdir -p $HOME/bin
 export PATH=$HOME/bin:$PATH
 pushd $HOME/bin
-  ln -s $HOME/go/bin/* .
+  ln -fs $HOME/go/bin/* .
 popd
